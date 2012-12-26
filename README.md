@@ -1,4 +1,4 @@
-libI2C
+libi2c
 ======
 
 Library aiming to provide I2C functionality for C programs.
