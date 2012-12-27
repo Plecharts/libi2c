@@ -18,10 +18,10 @@
  */
 
 #ifdef __linux__
-    #include <fcntl.h> // open(2)
+    #include <fcntl.h> // open()
     #include <linux/i2c-dev.h> // Some I2C constants
-    #include <sys/ioctl.h> // ioctl(2)
-    //#include <unistd.h>
+    #include <sys/ioctl.h> // ioctl()
+    #include <unistd.h> // read(), write(), close()
 #endif
 
 #include <stdint.h> // uintN_t
@@ -47,7 +47,7 @@ int i2c_open(char* interface_name)
 int i2c_close(int file_handle)
 {
     #ifdef __linux__ // Linux
-        if(close(&file_handle < 0))
+        if(close(file_handle) < 0)
         {
             return -1; //TODO: Assign specific return code
         }
@@ -82,7 +82,7 @@ int i2c_read(int file_handle, uint8_t* destination, uint8_t amount)
 int i2c_read_byte(int file_handle, uint8_t* destination)
 {
     #ifdef __linux__ // Linux
-        int return_value = i2c_read(file_handle, &destination, 1)
+        int return_value = i2c_read(file_handle, destination, 1);
 
         if(return_value < 0) return -1; // Something happened
         else if(return_value != 1) return -1; // No byte was received
@@ -103,7 +103,7 @@ int i2c_read_word(int file_handle, uint16_t* destination)
         else
         {
             // Shift first byte eight bits to the left and add second byte
-            destination = ((received_bytes[0] << 8) + received_bytes[1]);
+            *destination = ((bytes_received[0] << 8) + bytes_received[1]);
             return 0;
         }
     #else // Unsupported platform
@@ -114,7 +114,7 @@ int i2c_read_word(int file_handle, uint16_t* destination)
 int i2c_write(int file_handle, uint8_t* source, uint8_t amount)
 {
     #ifdef __linux__ // Linux
-        return write(file_handle, sourceBuffer, amount);
+        return write(file_handle, source, amount);
     #else // Unsupported platform
         return -1; //TODO: Assign specific return code
     #endif
