@@ -1,20 +1,27 @@
-/*
-    libi2c - Library aiming to provide I2C functionality for C programs.
-    Copyright (C) 2012  Jaroslav Peska
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+/**
+ * @file
+ * @author  Jaroslav Peska
+ * @version 0.1
+ *
+ * @section LICENSE
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @section DESCRIPTION
+ *
+ * C library aiming to provide clean and easy interface for I2C buses.
  */
 
 #ifdef __linux__
@@ -28,6 +35,12 @@
 
 #include "i2c.h"
 
+/**
+ * Open the I2C interface.
+ *
+ * @param interface_name Full path to the I2C interface file (/dev/i2c-X).
+ * @return File handle on succes, negative value on error.
+ */
 int i2c_open(char* interface_name)
 {
     #ifdef __linux__ // Linux
@@ -44,6 +57,12 @@ int i2c_open(char* interface_name)
     #endif
 }
 
+/**
+ * Close the I2C interface.
+ *
+ * @param file_handle An int file handle to already open I2C interface.
+ * @return 0 on success, negative value on error.
+ */
 int i2c_close(int file_handle)
 {
     #ifdef __linux__ // Linux
@@ -57,6 +76,14 @@ int i2c_close(int file_handle)
     #endif
 }
 
+/**
+ * Select a target I2C device address on a bus opened by the file handle.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param address A 7-bit address of the target device.
+ * @return 0 on success, negative value on error.
+ */
 int i2c_select_address(int file_handle, uint8_t address)
 {
     #ifdef __linux__ // Linux
@@ -70,6 +97,16 @@ int i2c_select_address(int file_handle, uint8_t address)
     #endif
 }
 
+/**
+ * Read a block of bytes from the target device.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param destination A pointer to an uint8_t array where the read bytes
+ *                    will be stored. The array will NOT be NULL terminated.
+ * @param amount An amount of bytes to be read.
+ * @return Amount of bytes read, negative value on error.
+ */
 int i2c_read(int file_handle, uint8_t* destination, uint8_t amount)
 {
     #ifdef __linux__ // Linux
@@ -79,6 +116,15 @@ int i2c_read(int file_handle, uint8_t* destination, uint8_t amount)
     #endif
 }
 
+/**
+ * Read a byte from the target device.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param destination A pointer to an uint8_t variable where the byte
+ *                    will be stored.
+ * @return 0 on success, negative value on error.
+ */
 int i2c_read_byte(int file_handle, uint8_t* destination)
 {
     #ifdef __linux__ // Linux
@@ -92,6 +138,15 @@ int i2c_read_byte(int file_handle, uint8_t* destination)
     #endif
 }
 
+/**
+ * Read a word (2 bytes) from the target device.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param destination A pointer to an uint16_t variable where the word
+ *                    will be stored.
+ * @return 0 on success, negative value on error.
+ */
 int i2c_read_word(int file_handle, uint16_t* destination)
 {
     #ifdef __linux__ // Linux
@@ -111,6 +166,17 @@ int i2c_read_word(int file_handle, uint16_t* destination)
     #endif
 }
 
+/**
+ * Write a block of bytes to the target device.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param source A pointer to an uint8_t array containing the
+ *               bytes to be written.
+ * @param amount An amount of bytes to be written
+ *               from the source array to the target device.
+ * @return Amount of bytes written, negative value on error.
+ */
 int i2c_write(int file_handle, uint8_t* source, uint8_t amount)
 {
     #ifdef __linux__ // Linux
@@ -120,6 +186,15 @@ int i2c_write(int file_handle, uint8_t* source, uint8_t amount)
     #endif
 }
 
+/**
+ * Write a byte to the target device.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param value A pointer to an uint8_t variable
+ *              containing the byte to be written.
+ * @return 0 on success, negative value on error.
+ */
 int i2c_write_byte(int file_handle, uint8_t value)
 {
     #ifdef __linux__ // Linux
@@ -133,6 +208,15 @@ int i2c_write_byte(int file_handle, uint8_t value)
     #endif
 }
 
+/**
+ * Write a word (2 bytes) to the target device.
+ *
+ * @param file_handle A file handle of an I2C bus
+ *                    opened by the i2c_open(char*) function.
+ * @param word_value A pointer to an uint16_t variable
+ *                   containing the word to be written.
+ * @return 0 on success, negative value on error.
+ */
 int i2c_write_word(int file_handle, uint16_t word_value)
 {
     #ifdef __linux__ // Linux
