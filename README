@@ -1,0 +1,29 @@
+libi2c
+======
+
+Library aiming to provide I2C functionality for C programs.
+Written completely in C, providing nice and clean interface.
+
+One library and interface for all platforms, functions return error code
+on unsupported platforms but compile with no problems.
+
+Full library functionality now only on Linux, but hopefully expect
+more platforms soon!
+
+# Compile and use as a shared library
+###############################################################################
+
+To compile the library as a shared library run make, then make install as root.
+The make install command will install the library in the /usr/lib/ directory
+and the libi2c.h header file in the /usr/include/ directory.
+If you don't want to use the make install command for some reason, just copy
+the libi2c.so and libi2c.h files from the bin directory whereever you want.
+When compiling your program, don't forget to link the shared library using
+the -li2c flag.
+
+# Use the library without any sharing
+###############################################################################
+
+Copy the libi2c.c and libi2c.h files from the src directory to your project
+folder, include the libi2c.h header and use the library as normal.
+Don't forget to add the libi2c.c file to be compiled with your program.
