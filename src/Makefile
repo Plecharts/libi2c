@@ -24,7 +24,9 @@ CCFLAGS = -Wall -O3
 all: i2c.o
 
 i2c.o: i2c.c i2c.h
-	$(CC) -c -fPIC i2c.c -o i2c.o
+	$(CC) -c -fPIC $(CCFLAGS) i2c.c -o i2c.o
 
 clean:
 	rm -rf i2c.o
+
+.PHONY: clean

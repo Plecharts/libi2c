@@ -23,16 +23,30 @@ CCFLAGS = -Wall -O3
 LINKFLAGS =
 SRCDIR = src
 BINDIR = bin
+LIBI2C_VERSION_MAJOR = 0
+LIBI2C_VERSION_MINOR = 1
+LIBI2C_VERSION_PATCH = 0
+
 
 all: libi2c
 
 libi2c:
 	make -C $(SRCDIR) all
 	mkdir -p $(BINDIR)
-	$(CC) -shared -Wl,-soname,libi2c.so.0 -o $(BINDIR)/libi2c.so.0.1 src/i2c.o
-	
+
+	$(CC) src/i2c.o -shared $(CCFLAGS) $(LINKFLAGS) \
+	-Wl,-soname,libi2c.so.$(LIBI2C_VERSION_MAJOR) \
+	-o $(BINDIR)/libi2c.so.$(LIBI2C_VERSION_MAJOR).$(LIBI2C_VERSION_MINOR).$(LIBI2C_VERSION_PATCH)
+
+	cp $(SRCDIR)/i2c.h $(BINDIR)/libi2c.h
+
+install: all
+	install -m 644 $(BINDIR)/libi2c.so.0.1.0 /usr/lib
+	install -m 644 $(BINDIR)/libi2c.h /usr/include
 
 clean:
 	rm -rf *.so.*
 	rm -rf $(BINDIR)
 	make -C $(SRCDIR) clean
+
+.PHONY: install clean
