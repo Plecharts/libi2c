@@ -34,11 +34,11 @@ libi2c:
 	make -C $(SRCDIR) all
 	mkdir -p $(BINDIR)
 
-	$(CC) src/i2c.o -shared $(CCFLAGS) $(LINKFLAGS) \
+	$(CC) $(SRCDIR)/libi2c.o -shared $(CCFLAGS) $(LINKFLAGS) \
 	-Wl,-soname,libi2c.so.$(LIBI2C_VERSION_MAJOR) \
 	-o $(BINDIR)/libi2c.so.$(LIBI2C_VERSION_MAJOR).$(LIBI2C_VERSION_MINOR).$(LIBI2C_VERSION_PATCH)
 
-	cp $(SRCDIR)/i2c.h $(BINDIR)/libi2c.h
+	cp $(SRCDIR)/libi2c.h $(BINDIR)/libi2c.h
 
 install: all
 	install -m 644 $(BINDIR)/libi2c.so.0.1.0 /usr/lib

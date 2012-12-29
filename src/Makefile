@@ -21,12 +21,12 @@
 CC = gcc
 CCFLAGS = -Wall -O3
 
-all: i2c.o
+all: libi2c.o
 
-i2c.o: i2c.c i2c.h
-	$(CC) -c -fPIC $(CCFLAGS) i2c.c -o i2c.o
+libi2c.o: libi2c.c libi2c.h
+	$(CC) -c -fPIC $(CCFLAGS) libi2c.c -o libi2c.o
 
 clean:
-	rm -rf i2c.o
+	rm -rf libi2c.o
 
 .PHONY: clean
