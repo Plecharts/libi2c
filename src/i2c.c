@@ -1,9 +1,7 @@
-/**
- * @file
- * @author  Jaroslav Peska
- * @version 0.1
- *
+/******************************************************************************
  * @section LICENSE
+ *
+ * Copyright (c) 2012 Jaroslav Peska
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,12 +14,18 @@
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * @section DESCRIPTION
- *
- * C library aiming to provide clean and easy interface for I2C buses.
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc.
+ * 51 Franklin Street, Fifth Floor
+ * Boston, MA  02110-1301
+ * USA
+ *****************************************************************************/
+
+/**
+ * @file
+ * @author  Jaroslav Peska
+ * @version 0.1
+ * @brief C library aiming to provide clean and easy interface for I2C buses.
  */
 
 #ifdef __linux__
