@@ -37,7 +37,7 @@
 
 #include <stdint.h> // uintN_t
 
-#include "i2c.h"
+#include "libi2c.h"
 
 /**
  * Open the I2C interface.
