@@ -17,7 +17,7 @@ To compile the library as a shared library run make, then make install as root.
 The make install command will install the library in the /usr/lib/ directory
 and the libi2c.h header file in the /usr/include/ directory.
 If you don't want to use the make install command for some reason, just copy
-the libi2c.so and libi2c.h files from the bin directory where ever you want.
+the libi2c.so and libi2c.h files from the bin directory wherever you want.
 When compiling your program, don't forget to link the shared library using
 the -li2c flag.
 
